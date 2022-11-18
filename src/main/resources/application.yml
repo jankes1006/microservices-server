@@ -1,0 +1,35 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: microservices-server
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
+            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
+            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
+            user-info-authentication-method: header
+            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            authorization-grant-type: authorization_code
+            client-id: ${keycloak-client.id}
+            provider: keycloak
+            scope: openid
+            redirect-uri: ${keycloak-client.redirect-uri}
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://127.0.0.1:8080/realms/microservices/protocol/openid-connect/certs
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka
+keycloak-client:
+  redirect-uri: http://127.0.0.1:8088/login/oauth2/code/keycloak
+  server-url: http://127.0.0.1:8080
+  id: microservicesClient
+  realm: microservices
