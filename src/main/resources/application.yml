@@ -8,14 +8,6 @@ spring:
       client:
         provider:
           keycloak:
-#            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
-#            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
-#            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
-#            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
-            token-uri: ${keycloak-client.server-url}/auth/realms/${keycloak-client.realm}/protocol/openid-connect/token
-            jwk-set-uri: ${keycloak-client.server-url}/auth/realms/${keycloak-client.realm}/protocol/openid-connect/certs
-            authorization-uri: ${keycloak-client.server-url}/auth/realms/${keycloak-client.realm}/protocol/openid-connect/auth
-            user-info-uri: ${keycloak-client.server-url}/auth/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
             user-info-authentication-method: header
             user-name-attribute: preferred_username
         registration:
@@ -25,17 +17,11 @@ spring:
             provider: keycloak
             scope: openid
             redirect-uri: ${keycloak-client.redirect-uri}
-      resourceserver:
-        jwt:
-#          jwk-set-uri: ${keycloak-client.server-url}/realms/microservices/protocol/openid-connect/certs
-          jwk-set-uri: ${keycloak-client.server-url}/auth/realms/microservices/protocol/openid-connect/certs
 eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:8761/eureka
 keycloak-client:
   redirect-uri: http://127.0.0.1:8763/login/oauth2/code/keycloak
-#  server-url: http://127.0.0.1:8080
-  server-url: https://lemur-18.cloud-iam.com
   id: microservicesClient
   realm: microservices
